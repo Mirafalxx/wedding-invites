@@ -8,7 +8,7 @@
   position: relative;
   overflow: auto;
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     width: 0;
     height: 0;
   }
@@ -24,6 +24,11 @@
     z-index: 999;
     top: 50%;
     transform: translate(0, -50%);
+
+    @media screen and (max-width: 600px) {
+      width: 0 !important;
+      height: 0 !important;
+    }
   }
 
   &:after {
@@ -37,6 +42,11 @@
     background: url('../../assets/background/twig-1.png') 0 0 no-repeat;
     background-size: 100%;
     z-index: 999;
+
+    @media screen and (max-width: 600px) {
+      width: 0 !important;
+      height: 0 !important;
+    }
   }
 
   .cards {
