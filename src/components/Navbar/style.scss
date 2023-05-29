@@ -1,0 +1,8 @@
+@import "../../style/colors.scss";
+.navigation {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 65px;
+  background-color: $secondary-green;
+}
