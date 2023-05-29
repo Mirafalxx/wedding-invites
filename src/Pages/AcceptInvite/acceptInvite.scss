@@ -91,6 +91,10 @@
   top: 50% !important;
   transform: translate(0, -50%) !important;
 
+  @media screen and (max-width: 600px) {
+    width: 98% !important;
+  }
+
   .ant-modal-body {
     display: flex;
     flex-direction: column;
