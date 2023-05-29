@@ -1,13 +1,7 @@
-import React from "react";
-import Navbar from "../Navbar/Navbar";
+import React from 'react';
 
 const Layout = ({ children }) => {
-  return (
-    <div className="layout">
-      <Navbar />
-      <main className="container">{children}</main>
-    </div>
-  );
+  return <main className="container">{children}</main>;
 };
 
 export default Layout;
