@@ -6,3 +6,20 @@
   min-height: 65px;
   background-color: $secondary-green;
 }
+
+.nav-items {
+  display: flex;
+  gap: 45px;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.nav-link {
+  color: #ffffff;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.4s ease-in-out;
+  &:hover {
+    color: red;
+  }
+}
