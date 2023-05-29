@@ -1,0 +1,27 @@
+@import '../../style/colors';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 300px;
+  height: 400px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  width: calc(33% - 30px);
+  padding: 20px;
+  background: linear-gradient(to bottom right, $main-green 55%, $secondary-green); /* Диагональный градиент от оранжевого к фиолетовому */
+  backdrop-filter: blur(10px);
+
+  img {
+    object-fit: contain;
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  &__actions {
+    margin-top: auto;
+    margin-left: auto;
+  }
+}
