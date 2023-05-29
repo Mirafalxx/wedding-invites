@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { Button, Modal } from 'antd';
 
-const Card = ({ src, title }) => {
+const DressCodeCard = ({ src, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -20,7 +20,7 @@ const Card = ({ src, title }) => {
         <h3>{title}</h3>
       </div>
 
-      <Modal title="Придешь не придешь?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal'}>
+      <Modal title="Дресс-код" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal'}>
         <div className={'modal__body'}>
           Тестер 228 фыворфыоврфыоврфыорворфыоврфыорвфоывфы Тестер 228 фыворфыоврфыоврфыорворфыоврфыорвфоывфы Тестер 228 фыворфыоврфыоврфыорворфыоврфыорвфоывфы Тестер 228
           фыворфыоврфыоврфыорворфыоврфыорвфоывфы Тестер 228 фыворфыоврфыоврфыорворфыоврфыорвфоывфы Тестер 228 фыворфыоврфыоврфыорворфыоврфыорвфоывфы Тестер 228
@@ -35,4 +35,4 @@ const Card = ({ src, title }) => {
   );
 };
 
-export default memo(Card);
+export default memo(DressCodeCard);

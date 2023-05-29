@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { Button, Modal } from 'antd';
 
-const Card = ({ src, title }) => {
+const GoCard = ({ src, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -35,4 +35,4 @@ const Card = ({ src, title }) => {
   );
 };
 
-export default memo(Card);
+export default memo(GoCard);
