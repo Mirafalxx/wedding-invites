@@ -1,7 +1,8 @@
 import React, { memo, useState } from 'react';
-import { Button, Checkbox, Modal } from 'antd';
+import { Button, Modal } from 'antd';
+import Location from '../../Location/Location';
 
-const GoCard = ({ src, title }) => {
+const WhenMyPosition = ({ src, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -20,10 +21,9 @@ const GoCard = ({ src, title }) => {
         <h3>{title}</h3>
       </div>
 
-      <Modal title="Придете ли Вы на свадьбу ?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal'}>
+      <Modal title="Где Я сижу?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal modal__location'}>
         <div className={'modal__body'}>
-          <Checkbox>Я Обязательно приду 🚀🚀🚀🚀🚀 </Checkbox>
-          <Checkbox>Я гафняшка не приду 🦐🦐🦐🦐🦐</Checkbox>
+          <Location />
         </div>
         <div className={'modal__footer'}>
           <Button onClick={handleCancel}>Назад</Button>
@@ -34,4 +34,4 @@ const GoCard = ({ src, title }) => {
   );
 };
 
-export default memo(GoCard);
+export default memo(WhenMyPosition);

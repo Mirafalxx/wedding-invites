@@ -1,0 +1,79 @@
+.location {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid black;
+  height: calc(100vh - 184px);
+  border-radius: 7px;
+  position: relative;
+
+  &__presidium {
+    border: 1px solid black;
+    width: 300px;
+    height: 60px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 7px;
+  }
+
+  &__exit {
+    border: 1px solid black;
+    width: 200px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0);
+    border-radius: 7px;
+  }
+}
+
+.chair {
+  margin: auto;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.table {
+  border: 1px solid black;
+  width: 300px;
+  height: 80px;
+  position: absolute;
+  border-radius: 7px;
+  display: flex;
+}
+
+.table-1 {
+  top: 110px;
+  left: 80px;
+}
+.table-2 {
+  top: 250px;
+  left: 80px;
+}
+.table-3 {
+  top: 400px;
+  left: 80px;
+}
+.table-4 {
+  top: 110px;
+  right: 80px;
+}
+.table-5 {
+  top: 250px;
+  right: 80px;
+}
+.table-6 {
+  top: 400px;
+  right: 80px;
+}
