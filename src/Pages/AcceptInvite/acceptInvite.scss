@@ -75,11 +75,12 @@
   backdrop-filter: blur(10px);
   text-align: center;
   cursor: pointer;
-  transition: 1s all ease-in;
+  transition: 0.2s all ease-in;
 
   &:hover {
-    transition: 1s all ease-in;
+    transition: 0.2s all ease-in;
     box-shadow: -8px 3px 13px 0px rgba(0, 0, 0, 0.46);
+    transform: scale(1.05);
   }
 
   h3 {
