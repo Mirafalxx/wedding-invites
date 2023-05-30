@@ -58,6 +58,11 @@
     width: 80%;
     margin: auto;
     max-height: 100vh;
+
+    @media screen and (max-width: 600px) {
+      margin: 50px auto;
+      max-height: initial;
+    }
   }
 }
 
@@ -103,7 +108,10 @@
   transform: translate(0, -50%) !important;
 
   @media screen and (max-width: 600px) {
-    width: 98% !important;
+    width: 99% !important;
+
+    top: 100px !important;
+    transform: translate(0, 0%) !important;
   }
 
   .ant-modal-body {
