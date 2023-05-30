@@ -31,7 +31,7 @@ const UploadCard = ({ src, title }) => {
         <img src={src} alt="icon-card-button" />
         <h3>{title}</h3>
       </div>
-      <input type="file" onChange={onFileChange} ref={inputRef} style={{ display: 'none' }} multiple />
+      <input type="file" onChange={onFileChange} ref={inputRef} style={{ display: 'none' }} multiple accept={`image/*`} />
     </>
   );
 };
