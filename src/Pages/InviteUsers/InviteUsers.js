@@ -6,19 +6,19 @@ import "./style.scss";
 const USERS_MOCK = [
   {
     value: 1,
-    label: "Maxim Sukhanov",
+    label: "Максим Суханов",
   },
   {
     value: 2,
-    label: "Emil Alimbekov",
+    label: "Эмиль Алимбеков",
   },
   {
     value: 3,
-    label: "Eldar Dzhakypov",
+    label: "Эльдар Джакыпов",
   },
   {
     value: 4,
-    label: "Vallay Balay",
+    label: "Валлая Балалай",
   },
 ];
 

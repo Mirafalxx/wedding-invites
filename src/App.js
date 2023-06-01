@@ -4,6 +4,7 @@ import AcceptInvite from "./Pages/AcceptInvite/AcceptInvite";
 import InviteUsers from "./Pages/InviteUsers/InviteUsers";
 import UserList from "./Pages/UserList/UserList";
 import { Route, Routes } from "react-router-dom";
+import Gallery from "./Pages/Gallery/Gallery";
 import "./App.scss";
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/" element={<AcceptInvite />} />
         <Route path="/invite-users" element={<InviteUsers />} />
         <Route path="/user-list" element={<UserList />} />
+        <Route path="/gallery" element={<Gallery />} />
       </Routes>
     </Layout>
   );
