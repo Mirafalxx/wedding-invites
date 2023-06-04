@@ -1,5 +1,4 @@
 import React from 'react';
-import { Image } from 'antd';
 import './style.scss';
 
 const PhotoCard = ({ src, alt }) => {

@@ -3,7 +3,7 @@ import './location.scss';
 
 const chair = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-const Location = () => {
+const Location = ({ activeTable = null }) => {
   return (
     <div className="location">
       <div className="location__presidium">
@@ -15,7 +15,7 @@ const Location = () => {
 
       <div className="table table-1">
         {chair.map((item) => (
-          <div className={'chair'}>{item}</div>
+          <div className={`chair`}>{item}</div>
         ))}
       </div>
       <div className="table  table-2">
@@ -44,8 +44,7 @@ const Location = () => {
         ))}
       </div>
 
-
-      <div className={"location__exit"}>Вход/Выход</div>
+      <div className={'location__exit'}>Вход/Выход</div>
     </div>
   );
 };

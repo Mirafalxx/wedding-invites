@@ -1,5 +1,61 @@
 .invite-user__container {
   display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  // justify-content: center;
+}
+
+.add-user__wrapper {
+  width: 30%;
+  display: flex;
   flex-direction: column;
   gap: 15px;
+  justify-content: center;
+}
+
+.display-place__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+}
+.main-table__wrapper {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  .main-table {
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    border: 1px solid black;
+    padding: 15px 0;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+}
+
+.secondary-tables__wrapper {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+  .secondary-table {
+    justify-content: center;
+    width: 45%;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+    gap: 2px;
+    padding: 20px 0px;
+  }
+}
+
+.char {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  text-align: center;
 }
