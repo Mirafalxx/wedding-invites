@@ -20,7 +20,14 @@ const AlcoCard = ({ src, title }) => {
         <h3>{title}</h3>
       </div>
 
-      <Modal title="Выберите список желаемого алкоголя." footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal'}>
+      <Modal
+        title="Алкоголь- свадьба отличный повод чтобы выпить что ты предпочитаешь?"
+        footer={null}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className={'modal'}
+      >
         <div className={'modal__body'}>
           <Checkbox>Водка</Checkbox>
           <Checkbox>Пиво</Checkbox>

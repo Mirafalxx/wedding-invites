@@ -6,6 +6,11 @@ body {
   background: #f6fff6;
 }
 
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 *,
 ::before,
 ::after {
