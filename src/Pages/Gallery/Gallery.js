@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import PhotoCard from '../../components/PhotoCard/PhotoCard';
 import './styles.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getImages } from '../../api/usersApi';
+import { getImages } from '../../api/uploadApi';
 import { Link } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 

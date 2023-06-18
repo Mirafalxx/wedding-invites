@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { createSlice } from '@reduxjs/toolkit';
-import { getImages, uploadImages } from '../api/usersApi';
+import { getImages, uploadImages } from '../api/uploadApi';
 
 const imagesSlice = createSlice({
   name: 'images',
