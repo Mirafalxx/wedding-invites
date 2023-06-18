@@ -5,7 +5,7 @@ const GalleryCard = ({ src, title }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="card" onClick={() => navigate('/invite-users')}>
+    <div className="card" onClick={() => navigate('/gallery')}>
       <img src={src} alt="" />
       <h3>{title}</h3>
     </div>
