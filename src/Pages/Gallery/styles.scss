@@ -1,10 +1,17 @@
-.gallery{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    overflow-y: scroll;
+.gallery {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+  position: relative;
+  padding: 40px 20px 20px;
+
+  &__link {
+    position: absolute;
+    top: 20px;
+    left: 120px;
+  }
 }
