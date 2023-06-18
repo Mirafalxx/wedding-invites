@@ -15,8 +15,8 @@ const PhotoCard = ({ src, images }) => {
             onVisibleChange: (vis) => setVisible(vis),
           }}
         >
-          {images.map((item) => (
-            <Image src={item.url} />
+          {images.map((item, index) => (
+            <Image src={item.url} key={index} />
           ))}
         </Image.PreviewGroup>
       </div>

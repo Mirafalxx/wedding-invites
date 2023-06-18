@@ -4,8 +4,8 @@ import axios from 'axios';
 
 export const fetchUsers = createAsyncThunk('fetch/Users', async () => {
   try {
-    const response = await axiosApi.get('/users');
-    return response.data?.data;
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +35,7 @@ export const uploadImages = createAsyncThunk('post/uploadImages', async (data) =
 
 export const getImages = createAsyncThunk('get/getImages', async () => {
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=50');
+    const response = await axios.get('https://jsonplaceholder.typicode.com/photos?_start=0&_limit=20');
     return response.data;
   } catch (error) {
     console.log(error);

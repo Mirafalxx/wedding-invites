@@ -29,3 +29,13 @@ body::-webkit-scrollbar {
   width: 100vw;
   height: 100vh;
 }
+
+.ant-radio-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+
+  span {
+    font-size: 16px !important;
+  }
+}

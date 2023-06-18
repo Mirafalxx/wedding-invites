@@ -1,8 +1,13 @@
 import React, { memo, useState } from 'react';
-import { Button, Checkbox, Modal } from 'antd';
+import { Button, Modal, Radio } from 'antd';
 
 const GoCard = ({ src, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [value, setValue] = useState(1);
+  const onChange = (e) => {
+    setValue(e.target.value);
+  };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -20,10 +25,12 @@ const GoCard = ({ src, title }) => {
         <h3>{title}</h3>
       </div>
 
-      <Modal title="Придете ли Вы на свадьбу ?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal'}>
+      <Modal title="Придете ли Вы на свадьбу ?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal modal__little'}>
         <div className={'modal__body'}>
-          <Checkbox>Я Обязательно приду 🚀🚀🚀🚀🚀 </Checkbox>
-          <Checkbox>Я гафняшка не приду 🦐🦐🦐🦐🦐</Checkbox>
+          <Radio.Group onChange={onChange} value={value}>
+            <Radio value={true}>Я Обязательно приду!!!</Radio>
+            <Radio value={false}>К сожалению нет...</Radio>
+          </Radio.Group>
         </div>
         <div className={'modal__footer'}>
           <Button onClick={handleCancel}>Назад</Button>

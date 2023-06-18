@@ -1,50 +1,41 @@
-import { Table } from "antd";
+import { Table } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchUsers } from '../../api/usersApi';
+import './styles.scss';
 const columns = [
   {
-    title: "Имя",
-    dataIndex: "name",
+    title: 'Имя',
+    dataIndex: 'name',
   },
   {
-    title: "Фамилия",
-    dataIndex: "address",
+    title: 'Фамилия',
+    dataIndex: 'address',
   },
   {
-    title: "Номер стола",
-    dataIndex: "table_number  ",
+    title: 'Номер стола',
+    dataIndex: 'table_number  ',
   },
   {
-    title: "Придет",
-    dataIndex: "age",
-    render: (_, record) => <div>{record.age === 0 ? "Нет" : "Да"}</div>,
+    title: 'Придет',
+    dataIndex: 'age',
+    render: (_, record) => <div>{record.age === 0 ? 'Нет' : 'Да'}</div>,
     sorter: (a, b) => a.age - b.age,
   },
 ];
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 0,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 1,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 0,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    age: 1,
-    address: "London No. 2 Lake Park",
-  },
-];
 
-const UserList = () => <Table columns={columns} dataSource={data} pagination={data.length > 10} />;
+const UserList = () => {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users.users);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
+  return (
+    <div className={'users-list'}>
+      <Table columns={columns} dataSource={[...users, ...users]} pagination={[...users, ...users].length > 10} />
+    </div>
+  );
+};
 export default UserList;
