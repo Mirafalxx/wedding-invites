@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../utils/axiosApi';
-import axios from 'axios';
+import { showNotification } from '../components/notification/showNotification';
 
 export const uploadImages = createAsyncThunk('post/uploadImages', async (data) => {
   try {
@@ -8,7 +8,9 @@ export const uploadImages = createAsyncThunk('post/uploadImages', async (data) =
       const file = data[i];
       const formData = new FormData();
       formData.append('file', file);
-      axiosApi.post('/files/store', formData);
+      await axiosApi.post('/files/store', formData);
+
+      showNotification('success', 'Вы успешно загрузили фотографию', 'Загрузка');
     }
   } catch (error) {
     console.log(error);

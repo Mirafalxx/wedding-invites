@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Button, Input, Select } from 'antd';
 import { showNotification } from '../../components/notification/showNotification';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../../api/usersApi';
-import Location from '../../Location/Location';
 import './style.scss';
 
 const TABLE_MOCK = [
