@@ -12,7 +12,6 @@ const UploadCard = ({ src, title }) => {
   const handleDrop = (event) => {
     event.preventDefault();
     const file = event.dataTransfer.files;
-    const reader = new FileReader();
     dispatch(uploadImages(file));
   };
 

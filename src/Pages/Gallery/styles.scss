@@ -23,9 +23,23 @@
   padding: 10px;
   margin-bottom: 10px;
   width: 200px;
+  border-radius: 4px;
 
   &:hover {
     border: 1px solid #f6fff6;
     background: #96f696;
+  }
+}
+
+.admin__btn-table {
+  border: 1px solid #ff4f4f;
+  background: #fd2f2f;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+
+  &:hover {
+    border: 1px solid #fd2f2f;
+    background: #ff4f4f;
   }
 }
