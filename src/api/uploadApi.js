@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../utils/axiosApi';
 import { showNotification } from '../components/notification/showNotification';
+import { store } from '../index';
 
 export const uploadImages = createAsyncThunk('post/uploadImages', async (data) => {
   try {
@@ -21,6 +22,16 @@ export const getImages = createAsyncThunk('get/getImages', async () => {
   try {
     const response = await axiosApi.get('/files');
     return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const deleteImages = createAsyncThunk('get/deleteImages', async (id) => {
+  try {
+    await axiosApi.delete(`/files/${id}`);
+    showNotification('success', 'Вы успешно удалили фотографию', 'Удаление');
+    store.dispatch(getImages());
   } catch (error) {
     console.log(error);
   }

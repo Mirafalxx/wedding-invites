@@ -15,6 +15,8 @@ const App = () => {
         <Route path="/invite-users" element={<InviteUsers />} />
         <Route path="/user-list" element={<UserList />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery/:id" element={<Gallery />} />
+
       </Routes>
     </Layout>
   );

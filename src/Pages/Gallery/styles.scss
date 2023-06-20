@@ -3,7 +3,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   overflow-y: scroll;
   position: relative;
@@ -13,5 +13,19 @@
     position: absolute;
     top: 20px;
     left: 120px;
+  }
+}
+
+.admin__btn {
+  border: 1px solid #96f696;
+  background: #f6fff6;
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+
+  &:hover {
+    border: 1px solid #f6fff6;
+    background: #96f696;
   }
 }
