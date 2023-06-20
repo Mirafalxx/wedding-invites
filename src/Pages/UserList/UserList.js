@@ -7,6 +7,11 @@ const columns = [
   {
     title: 'Имя',
     dataIndex: 'name',
+    render: (_, record) => (
+      <div>
+        {record.firstName} {record.lastName}
+      </div>
+    ),
   },
   {
     title: 'Фамилия',
@@ -27,6 +32,8 @@ const columns = [
 const UserList = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
+
+  console.log(users);
 
   useEffect(() => {
     dispatch(fetchUsers());

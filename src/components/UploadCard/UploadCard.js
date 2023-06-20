@@ -1,9 +1,11 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { uploadImages } from '../../api/uploadApi';
 
 const UploadCard = ({ src, title }) => {
-  const [files, setFiles] = useState([]);
+  const dispatch = useDispatch();
   const inputRef = React.useRef();
-  console.log(files);
+
   const activateInput = () => {
     inputRef.current?.click();
   };
@@ -11,10 +13,7 @@ const UploadCard = ({ src, title }) => {
     event.preventDefault();
     const file = event.dataTransfer.files;
     const reader = new FileReader();
-    setFiles(file);
-    reader.onload = (e) => {};
-    //
-    // reader.readAsDataURL(file);
+    dispatch(uploadImages(file));
   };
 
   const handleDragOver = (event) => {
@@ -22,7 +21,7 @@ const UploadCard = ({ src, title }) => {
   };
 
   const onFileChange = (e) => {
-    setFiles(...e.target.files);
+    dispatch(uploadImages(e.target.files));
   };
 
   return (
