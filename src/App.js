@@ -7,12 +7,14 @@ import { Route, Routes } from 'react-router-dom';
 import Gallery from './Pages/Gallery/Gallery';
 import './App.scss';
 import { PopupContextProvider } from './utils/ModalContenxt';
+import Spinner from './components/Spinner/Spinner';
 
 const App = () => {
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   return (
-    <PopupContextProvider modal={modal} setModal={setModal}>
+    <PopupContextProvider modal={modal} setModal={setModal} setLoading={setLoading}>
       <Layout>
         <Routes>
           <Route path="/" element={<AcceptInvite />} />
@@ -22,6 +24,8 @@ const App = () => {
           <Route path="/gallery/:id" element={<Gallery />} />
         </Routes>
       </Layout>
+
+      {loading && <Spinner />}
     </PopupContextProvider>
   );
 };

@@ -20,7 +20,8 @@ import './acceptInvite.scss';
 const AcceptInvite = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
-  const { modal, setModal } = useContext(PopupContext);
+  const loading = useSelector((state) => state.users.loading);
+  const { modal, setModal, setLoading } = useContext(PopupContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
 
@@ -33,8 +34,14 @@ const AcceptInvite = () => {
     if (localStorage.getItem('user')) {
       setModal(false);
       dispatch(getUser(localStorage.getItem('user')));
+    } else {
+      setModal(true);
     }
-  }, []);
+  }, [dispatch, setModal]);
+
+  useEffect(() => {
+    if (!loading) setLoading(false);
+  }, [loading, setLoading]);
 
   const handleOk = () => {
     localStorage.setItem('user', currentUser);

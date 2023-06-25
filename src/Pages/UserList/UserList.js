@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Button, Modal, Table, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser, deleteUser, fetchUsers } from '../../api/usersApi';
 import './styles.scss';
 import { UserOutlined } from '@ant-design/icons';
+import Qrcode from '../../components/QRCODE';
+import { PopupContext } from '../../utils/ModalContenxt';
 
 const UserList = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
+  const loading = useSelector((state) => state.users.loading);
   const [show, setShow] = useState(false);
+  const [showQ, setShowQ] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setLoading } = useContext(PopupContext);
+
+  useEffect(() => {
+    if (!loading) setLoading(false);
+  }, [loading, setLoading]);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -118,13 +127,15 @@ const UserList = () => {
 
   return (
     <div className="users">
-      <button className="admin__btn" onClick={() => setShow(true)}>
-        Добавить Пользователя
-      </button>
-      <div className="users-list">
-        <Table columns={columns} dataSource={users} pagination={users.length > 10} />
+      <div className="users__header">
+        <button className="admin__btn" onClick={() => setShow(true)}>
+          Добавить Пользователя
+        </button>
+        <button className="admin__btn" onClick={() => setShowQ(true)}>Показать QR CODE</button>
       </div>
-
+      <div className="users-list">
+        <Table columns={columns} dataSource={users} pagination={users.length > 10} scroll={{ x: 1300 }} />
+      </div>
       <Modal title="Добавление гостя" footer={null} visible={show} onOk={handleOk} onCancel={handleCancel} className="modal">
         <div className="modal__body">
           <Input size="large" placeholder="Имя" prefix={<UserOutlined />} value={firstName} onChange={handleFirstNameChange} />
@@ -136,6 +147,9 @@ const UserList = () => {
           <Button onClick={handleCancel}>Назад</Button>
           <Button onClick={handleOk}>ОК</Button>
         </div>
+      </Modal>
+      <Modal title="QR CODE" footer={null} visible={showQ} onOk={() => setShowQ(false)} onCancel={() => setShowQ(false)} className="modal">
+        <Qrcode />
       </Modal>
     </div>
   );
