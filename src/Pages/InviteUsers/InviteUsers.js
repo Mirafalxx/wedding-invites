@@ -1,8 +1,9 @@
-import React, {  useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Input, Select } from 'antd';
 import { showNotification } from '../../components/notification/showNotification';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser } from '../../api/usersApi';
+import { createUser, fetchUsers } from '../../api/usersApi';
+import { PopupContext } from '../../utils/ModalContenxt';
 import './style.scss';
 
 const TABLE_MOCK = [
@@ -84,15 +85,24 @@ const CHAIR_MOCK = [
 ];
 
 const InviteUsers = () => {
-  const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
-
+  const users = useSelector((state) => state.users.users);
+  const loading = useSelector((state) => state.users.loading);
   const [invitedUser, setInvitedUser] = useState(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [chair, setChair] = useState(null);
   const [table, setTable] = useState(null);
   const [url, setUrl] = useState(null);
+  const { setLoading } = useContext(PopupContext);
+
+  useEffect(() => {
+    if (!loading) setLoading(false);
+  }, [loading, setLoading]);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
   const resetStates = () => {
     setInvitedUser(null);
