@@ -1,10 +1,11 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useContext } from 'react';
 import PhotoCard from '../../components/PhotoCard/PhotoCard';
 import './styles.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getImages } from '../../api/uploadApi';
 import { Link, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
+import { PopupContext } from '../../utils/ModalContenxt';
 
 const Gallery = () => {
   const params = useParams();
@@ -16,6 +17,12 @@ const Gallery = () => {
   useEffect(() => {
     dispatch(getImages());
   }, [dispatch]);
+
+  const { setLoading } = useContext(PopupContext);
+
+  useEffect(() => {
+    if (!loading) setLoading(false);
+  }, [loading, setLoading]);
 
   return (
     <div className="gallery">

@@ -131,7 +131,9 @@ const UserList = () => {
         <button className="admin__btn" onClick={() => setShow(true)}>
           Добавить Пользователя
         </button>
-        <button className="admin__btn" onClick={() => setShowQ(true)}>Показать QR CODE</button>
+        <button className="admin__btn" onClick={() => setShowQ(true)}>
+          Показать QR CODE
+        </button>
       </div>
       <div className="users-list">
         <Table columns={columns} dataSource={users} pagination={users.length > 10} scroll={{ x: 1300 }} />
