@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/gallery/:id" element={<Gallery />} />
         </Routes>
       </Layout>
-
+<></>
       {loading && <Spinner />}
     </PopupContextProvider>
   );
