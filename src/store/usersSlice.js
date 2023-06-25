@@ -1,12 +1,13 @@
 import 'regenerator-runtime/runtime';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchUsers } from '../api/usersApi';
+import { fetchUsers, getUser } from '../api/usersApi';
 
 const usersSlice = createSlice({
   name: 'users',
   initialState: {
     users: [],
     loading: false,
+    user: {},
   },
   reducers: {},
   extraReducers: {
@@ -18,6 +19,18 @@ const usersSlice = createSlice({
       state.loading = false;
     },
     [fetchUsers.pending]: (state) => {
+      state.loading = false;
+    },
+
+    [getUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [getUser.fulfilled]: (state, { payload }) => {
+      console.log(payload);
+      state.user = payload;
+      state.loading = false;
+    },
+    [getUser.pending]: (state) => {
       state.loading = false;
     },
   },

@@ -1,9 +1,13 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Button, Modal, Radio } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUser } from '../../api/usersApi';
 
-const GoCard = ({ src, title }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [value, setValue] = useState(1);
+const GoCard = ({ src, title, isModalOpen, setIsModalOpen }) => {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(false);
+  const user = useSelector((state) => state.users.user);
+
   const onChange = (e) => {
     setValue(e.target.value);
   };
@@ -11,11 +15,23 @@ const GoCard = ({ src, title }) => {
   const showModal = () => {
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    if (Object.keys(user).length) {
+      setValue(user.isVisit);
+    }
+  }, [user]);
+
   const handleOk = () => {
     setIsModalOpen(false);
+
+    dispatch(updateUser({ ...user, isVisit: value }));
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
+
+    dispatch(updateUser({ ...user, isVisit: value }));
   };
 
   return (
@@ -34,7 +50,7 @@ const GoCard = ({ src, title }) => {
         </div>
         <div className={'modal__footer'}>
           <Button onClick={handleCancel}>Назад</Button>
-          <Button onClick={handleCancel}>ОК</Button>
+          <Button onClick={handleOk}>ОК</Button>
         </div>
       </Modal>
     </>

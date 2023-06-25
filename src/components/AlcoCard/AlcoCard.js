@@ -1,16 +1,36 @@
 import React, { memo, useState } from 'react';
 import { Button, Checkbox, Modal } from 'antd';
+import { updateUser } from '../../api/usersApi';
+import { useDispatch, useSelector } from 'react-redux';
+
+const DRINKS = ['Водка', 'Пиво', 'Вино', 'Шампанское', 'Виски', 'Текилла', 'Самбука'];
 
 const AlcoCard = ({ src, title }) => {
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useSelector((state) => state.users.user);
+  const [drinks, setDrinks] = useState('');
+
   const showModal = () => {
     setIsModalOpen(true);
   };
+
   const handleOk = () => {
     setIsModalOpen(false);
+
+    dispatch(updateUser({ ...user, drinks }));
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const checkBoxHandler = (event, item) => {
+    if (event) {
+      setDrinks((prevDrinks) => (prevDrinks ? prevDrinks + ' ' + item : prevDrinks + item));
+    } else {
+      setDrinks((prevDrinks) => prevDrinks.replace(item, ''));
+    }
   };
 
   return (
@@ -29,17 +49,15 @@ const AlcoCard = ({ src, title }) => {
         className={'modal'}
       >
         <div className={'modal__body'}>
-          <Checkbox>Водка</Checkbox>
-          <Checkbox>Пиво</Checkbox>
-          <Checkbox>Вино</Checkbox>
-          <Checkbox>Шампанское</Checkbox>
-          <Checkbox>Виски</Checkbox>
-          <Checkbox>Текилла</Checkbox>
-          <Checkbox>Самбука</Checkbox>
+          {DRINKS.map((item) => (
+            <Checkbox checked={user?.drinks?.includes(item)} onClick={(event) => checkBoxHandler(event.target.checked, item)}>
+              {item}
+            </Checkbox>
+          ))}
         </div>
         <div className={'modal__footer'}>
           <Button onClick={handleCancel}>Назад</Button>
-          <Button onClick={handleCancel}>ОК</Button>
+          <Button onClick={handleOk}>ОК</Button>
         </div>
       </Modal>
     </>

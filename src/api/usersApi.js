@@ -11,6 +11,15 @@ export const fetchUsers = createAsyncThunk('fetch/Users', async () => {
   }
 });
 
+export const getUser = createAsyncThunk('fetch/getUser', async (id) => {
+  try {
+    const response = await axiosApi.get(`/users/${id}`);
+    return response.data?.data?.[0];
+  } catch (error) {
+    return {};
+  }
+});
+
 export const createUser = createAsyncThunk('post/uploadImages', async (data) => {
   try {
     await axiosApi.post('/users/create', data);
@@ -21,11 +30,20 @@ export const createUser = createAsyncThunk('post/uploadImages', async (data) => 
   }
 });
 
-
 export const deleteUser = createAsyncThunk('post/deleteUser', async (data) => {
   try {
     await axiosApi.delete(`/users/${data}`, data);
     showNotification('success', 'Вы успешно удалили пользователя', 'Пользователь');
+    return true;
+  } catch (error) {
+    return false;
+  }
+});
+
+export const updateUser = createAsyncThunk('put/updateUser', async (data) => {
+  try {
+    await axiosApi.put(`/users/${data.id}`, data);
+    showNotification('success', 'Изменение прошли успешно', 'Пользователь');
     return true;
   } catch (error) {
     return false;
