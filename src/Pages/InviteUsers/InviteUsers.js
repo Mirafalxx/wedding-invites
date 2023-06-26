@@ -2,9 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Button, Input, Select } from 'antd';
 import { showNotification } from '../../components/notification/showNotification';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser, fetchUsers } from '../../api/usersApi';
+import { createUser, fetchUsers, updateUser } from '../../api/usersApi';
 import { PopupContext } from '../../utils/ModalContenxt';
 import './style.scss';
+const { Option } = Select;
 
 const TABLE_MOCK = [
   {
@@ -88,62 +89,70 @@ const InviteUsers = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
   const loading = useSelector((state) => state.users.loading);
-  const [invitedUser, setInvitedUser] = useState(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [chair, setChair] = useState(null);
   const [table, setTable] = useState(null);
-  const [url, setUrl] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const { setLoading } = useContext(PopupContext);
 
   useEffect(() => {
     if (!loading) setLoading(false);
   }, [loading, setLoading]);
 
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-
   const resetStates = () => {
-    setInvitedUser(null);
-    setFirstName(null);
-    setLastName(null);
     setChair(null);
     setTable(null);
+    setCurrentUser(null);
   };
 
-  const copyToClipBoard = async () => {
-    await navigator.clipboard.writeText(url).then(() => {
-      showNotification('success', 'Ссылка скопирована !');
-    });
-  };
+  // const copyToClipBoard = async () => {
+  //   await navigator.clipboard.writeText(url).then(() => {
+  //     showNotification('success', 'Ссылка скопирована !');
+  //   });
+  // };
 
+  function calculateChairNumber(table, chair) {
+    if (table < 1 || table > 6 || chair < 1 || chair > 12) {
+      return 'Недопустимые значения для стола или стула.';
+    }
+
+    const totalChairsPerTable = 12;
+    const chairNumber = (table - 1) * totalChairsPerTable + chair;
+    return chairNumber;
+  }
   const handleInviteUser = () => {
     const user = {
-      isVisit: true,
-      firstName,
-      lastName,
-      email: null,
-      password: null,
-      drinks: null,
-      isAdmin: null,
-      seats: [chair * table],
+      id: Number(currentUser),
+      seats: [calculateChairNumber(table, chair)],
     };
-    // dispatch(createUser(user));
 
-    let response = dispatch(createUser(user));
+    let response = dispatch(updateUser({ ...user }));
     response.then((res) => {
-      if (res.payload.status === 'success') {
+      console.log(res);
+      if (res.payload) {
         resetStates();
       }
     });
   };
 
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
   return (
     <div className="invite-user__container">
       <div className="add-user__wrapper">
-        <Input size="large" value={firstName} placeholder="Имя" onChange={(e) => setFirstName(e.target.value)} style={{ width: 350 }} />
-        <Input size="large" value={lastName} placeholder="Фамилия" onChange={(e) => setLastName(e.target.value)} style={{ width: 350 }} />
+        {/* <Input size="large" value={firstName} placeholder="Имя" onChange={(e) => setFirstName(e.target.value)} style={{ width: 350 }} /> */}
+        {/* <Input size="large" value={lastName} placeholder="Фамилия" onChange={(e) => setLastName(e.target.value)} style={{ width: 350 }} /> */}
+
+        <Select placeholder="Выберите Человека" size="large" style={{ width: 350 }} allowClear onChange={(e) => setCurrentUser(e)} value={currentUser}>
+          {users && (
+            <>
+              {users?.map((user) => {
+                return <Option key={user.id}>{`${user.firstName} ${user.lastName}`}</Option>;
+              })}
+            </>
+          )}
+        </Select>
         <Select
           placeholder="Выберите Стол"
           size="large"
@@ -171,11 +180,11 @@ const InviteUsers = () => {
           Пригласить
         </Button>
 
-        {url && (
+        {/* {url && (
           <Button onClick={copyToClipBoard} style={{ width: 350 }}>
             Копировать ссылку
           </Button>
-        )}
+        )} */}
       </div>
       {/* <div className="display-place__wrapper">
         <div className="main-table__wrapper">

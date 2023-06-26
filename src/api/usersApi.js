@@ -53,6 +53,9 @@ export const updateUser = createAsyncThunk('put/updateUser', async (data) => {
     showNotification('success', 'Изменение прошли успешно', 'Пользователь');
     return true;
   } catch (error) {
+    if (error.response.data.errors[0].message === 'Seats already taken') {
+      showNotification('error', 'Это место уже занято');
+    }
     return false;
   }
 });
