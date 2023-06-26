@@ -22,10 +22,13 @@ export const getUser = createAsyncThunk('fetch/getUser', async (id) => {
 
 export const createUser = createAsyncThunk('post/uploadImages', async (data) => {
   try {
-    await axiosApi.post('/users/create', data);
+    const res = await axiosApi.post('/users/create', data);
     showNotification('success', 'Вы успешно создали пользователя', 'Пользователь');
-    return true;
+    return res.data;
   } catch (error) {
+    if (error.response.data.errors[0].message === 'Seats already taken') {
+      showNotification('error', 'Это место уже занято');
+    }
     return false;
   }
 });

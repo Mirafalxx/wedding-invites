@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  // justify-content: center;
+  margin-top: 10%;
 }
 
 .add-user__wrapper {
@@ -11,6 +11,7 @@
   flex-direction: column;
   gap: 15px;
   justify-content: center;
+  margin: auto;
 }
 
 .display-place__wrapper {

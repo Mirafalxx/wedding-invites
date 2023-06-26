@@ -106,6 +106,8 @@ const InviteUsers = () => {
 
   const resetStates = () => {
     setInvitedUser(null);
+    setFirstName(null);
+    setLastName(null);
     setChair(null);
     setTable(null);
   };
@@ -113,7 +115,6 @@ const InviteUsers = () => {
   const copyToClipBoard = async () => {
     await navigator.clipboard.writeText(url).then(() => {
       showNotification('success', 'Ссылка скопирована !');
-      resetStates();
     });
   };
 
@@ -128,12 +129,15 @@ const InviteUsers = () => {
       isAdmin: null,
       seats: [chair * table],
     };
-    createUser(user).then((res) => {
-      console.log(res);
+    // dispatch(createUser(user));
+
+    let response = dispatch(createUser(user));
+    response.then((res) => {
+      if (res.payload.status === 'success') {
+        resetStates();
+      }
     });
   };
-
-  const chairZ = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
     <div className="invite-user__container">
@@ -146,6 +150,7 @@ const InviteUsers = () => {
           style={{ width: 350 }}
           allowClear
           options={TABLE_MOCK}
+          value={table}
           onChange={(e) => {
             setTable(e);
           }}
@@ -156,6 +161,7 @@ const InviteUsers = () => {
           size="large"
           style={{ width: 350 }}
           allowClear
+          value={chair}
           options={CHAIR_MOCK}
           onChange={(e) => {
             setChair(e);
@@ -171,7 +177,7 @@ const InviteUsers = () => {
           </Button>
         )}
       </div>
-      <div className="display-place__wrapper">
+      {/* <div className="display-place__wrapper">
         <div className="main-table__wrapper">
           <div className="main-table">
             <div className="char">1</div>
@@ -270,7 +276,7 @@ const InviteUsers = () => {
             <div className="char">12</div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
