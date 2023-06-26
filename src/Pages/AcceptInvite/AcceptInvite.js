@@ -45,6 +45,7 @@ const AcceptInvite = () => {
 
   const handleOk = () => {
     localStorage.setItem('user', currentUser);
+    dispatch(getUser(currentUser));
     setModal(false);
     setIsModalOpen(true);
   };

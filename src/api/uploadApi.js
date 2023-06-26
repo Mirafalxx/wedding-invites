@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../utils/axiosApi';
 import { showNotification } from '../components/notification/showNotification';
 import { store } from '../index';
+import fileDownload from 'js-file-download';
+import axios from 'axios';
 
 export const uploadImages = createAsyncThunk('post/uploadImages', async (data) => {
   try {
@@ -50,3 +52,5 @@ export const downloadImages = createAsyncThunk('post/uploadImages', async (data)
     console.log(error);
   }
 });
+
+

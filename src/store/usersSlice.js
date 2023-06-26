@@ -26,7 +26,6 @@ const usersSlice = createSlice({
       state.loading = true;
     },
     [getUser.fulfilled]: (state, { payload }) => {
-      console.log(payload);
       state.user = payload;
       state.loading = false;
     },

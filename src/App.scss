@@ -39,3 +39,13 @@ body::-webkit-scrollbar {
     font-size: 16px !important;
   }
 }
+
+.btn__download {
+  //position: absolute;
+  //top: 0;
+  //right: 0;
+  //z-index: 99999;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+}

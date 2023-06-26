@@ -1,8 +1,9 @@
-import React, { useState, memo } from 'react';
+import React, { memo, useState } from 'react';
 import './style.scss';
 import { Image } from 'antd';
 import { useDispatch } from 'react-redux';
 import { deleteImages } from '../../api/uploadApi';
+import ImageDownloadButton from '../DownLoadButton/DownLoadButton';
 
 const PhotoCard = ({ src, images, isAdmin, id }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const PhotoCard = ({ src, images, isAdmin, id }) => {
           Удалить фото
         </button>
       )}
+
+      <ImageDownloadButton imageUrl={src} />
+
       <Image preview={{ visible: false }} width={200} src={src} onClick={() => setVisible(true)} />
       <div className="photo-item__hidden">
         <Image.PreviewGroup
@@ -28,7 +32,9 @@ const PhotoCard = ({ src, images, isAdmin, id }) => {
           }}
         >
           {images.map((item, index) => (
-            <Image src={item.url} key={index} />
+            <>
+              <Image src={item.url} key={index} />
+            </>
           ))}
         </Image.PreviewGroup>
       </div>

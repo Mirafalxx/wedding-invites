@@ -41,8 +41,12 @@ export const deleteUser = createAsyncThunk('post/deleteUser', async (data) => {
 });
 
 export const updateUser = createAsyncThunk('put/updateUser', async (data) => {
+  const newData = { ...data };
+
+  delete newData.id;
+
   try {
-    await axiosApi.put(`/users/${data.id}`, data);
+    await axiosApi.put(`/users/${data.id}`, newData);
     showNotification('success', 'Изменение прошли успешно', 'Пользователь');
     return true;
   } catch (error) {
