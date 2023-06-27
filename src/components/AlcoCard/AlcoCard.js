@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Button, Checkbox, Modal } from 'antd';
 import { updateUser } from '../../api/usersApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,12 @@ const AlcoCard = ({ src, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const user = useSelector((state) => state.users.user);
   const [drinks, setDrinks] = useState('');
+
+  useEffect(() => {
+    if (user.drinks) {
+      setDrinks(user.drinks);
+    }
+  }, [user]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -50,7 +56,7 @@ const AlcoCard = ({ src, title }) => {
       >
         <div className={'modal__body'}>
           {DRINKS.map((item) => (
-            <Checkbox checked={user?.drinks?.includes(item)} onClick={(event) => checkBoxHandler(event.target.checked, item)}>
+            <Checkbox checked={drinks?.includes(item)} onClick={(event) => checkBoxHandler(event.target.checked, item)}>
               {item}
             </Checkbox>
           ))}
