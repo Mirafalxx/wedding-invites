@@ -6,6 +6,7 @@ import { UserOutlined } from '@ant-design/icons';
 import Qrcode from '../../components/QRCODE';
 import { PopupContext } from '../../utils/ModalContenxt';
 import './styles.scss';
+import InviteUsers from '../InviteUsers/InviteUsers';
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,8 @@ const UserList = () => {
   const loading = useSelector((state) => state.users.loading);
   const [show, setShow] = useState(false);
   const [showQ, setShowQ] = useState(false);
+  const [showLocation, setShowLocation] = useState(false);
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const { setLoading } = useContext(PopupContext);
@@ -115,6 +118,10 @@ const UserList = () => {
         <button className="admin__btn" onClick={() => setShow(true)}>
           Добавить Пользователя
         </button>
+
+        <button className="admin__btn" onClick={() => setShowLocation(true)}>
+          Посадить пользователя
+        </button>
         <button className="admin__btn" onClick={() => setShowQ(true)}>
           Показать QR CODE
         </button>
@@ -141,6 +148,16 @@ const UserList = () => {
         className="modal"
       >
         <Qrcode />
+      </Modal>
+
+      <Modal
+        title="Выбрать место рассадки"
+        footer={null}
+        visible={showLocation}
+        onCancel={() => setShowLocation(false)}
+        className="modal"
+      >
+        {showLocation && <InviteUsers />}
       </Modal>
     </div>
   );

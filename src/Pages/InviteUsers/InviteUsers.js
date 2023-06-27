@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, updateUser } from '../../api/usersApi';
 import { PopupContext } from '../../utils/ModalContenxt';
 import './style.scss';
+import { showNotification } from '../../components/notification/showNotification';
 
 const { Option } = Select;
 
@@ -115,7 +116,8 @@ const InviteUsers = () => {
 
   function calculateChairNumber(table, chair) {
     if (table < 1 || table > 6 || chair < 1 || chair > 12) {
-      return 'Недопустимые значения для стола или стула.';
+      showNotification('error', 'Недопустимые значения для стола или стула.', 'Рассадка');
+      return;
     }
     const totalChairsPerTable = 12;
     return (table - 1) * totalChairsPerTable + chair;

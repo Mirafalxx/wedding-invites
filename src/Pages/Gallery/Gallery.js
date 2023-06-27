@@ -1,12 +1,11 @@
-import React, { useEffect, memo, useContext } from 'react';
-import PhotoCard from '../../components/PhotoCard/PhotoCard';
-import './styles.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { downloadImage, getImages } from '../../api/uploadApi';
-import { Link, useParams } from 'react-router-dom';
-import Spinner from '../../components/Spinner/Spinner';
-import { PopupContext } from '../../utils/ModalContenxt';
-import axios from 'axios';
+import React, { memo, useContext, useEffect } from "react";
+import PhotoCard from "../../components/PhotoCard/PhotoCard";
+import "./styles.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { downloadImage, getImages } from "../../api/uploadApi";
+import { Link, useParams } from "react-router-dom";
+import Spinner from "../../components/Spinner/Spinner";
+import { PopupContext } from "../../utils/ModalContenxt";
 
 const Gallery = () => {
   const params = useParams();
