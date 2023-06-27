@@ -89,6 +89,7 @@ const InviteUsers = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
   const loading = useSelector((state) => state.users.loading);
+  const [inputs, setInputs] = useState([{ table: null, chair: null }]);
   const [chair, setChair] = useState(null);
   const [table, setTable] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
@@ -99,9 +100,8 @@ const InviteUsers = () => {
   }, [loading, setLoading]);
 
   const resetStates = () => {
-    setChair(null);
-    setTable(null);
     setCurrentUser(null);
+    setInputs([{ table: null, chair: null }]);
   };
 
   // const copyToClipBoard = async () => {
@@ -110,11 +110,20 @@ const InviteUsers = () => {
   //   });
   // };
 
+  const addInput = () => {
+    setInputs([...inputs, { table: null, chair: null }]);
+  };
+
+  const handleInputChange = (index, key, value) => {
+    const updatedInputs = [...inputs];
+    updatedInputs[index][key] = value;
+    setInputs(updatedInputs);
+  };
+
   function calculateChairNumber(table, chair) {
     if (table < 1 || table > 6 || chair < 1 || chair > 12) {
       return 'Недопустимые значения для стола или стула.';
     }
-
     const totalChairsPerTable = 12;
     const chairNumber = (table - 1) * totalChairsPerTable + chair;
     return chairNumber;
@@ -122,7 +131,7 @@ const InviteUsers = () => {
   const handleInviteUser = () => {
     const user = {
       id: Number(currentUser),
-      seats: [calculateChairNumber(table, chair)],
+      seats: inputs.map((item) => calculateChairNumber(item.table, item.chair)),
     };
 
     let response = dispatch(updateUser({ ...user }));
@@ -144,7 +153,14 @@ const InviteUsers = () => {
         {/* <Input size="large" value={firstName} placeholder="Имя" onChange={(e) => setFirstName(e.target.value)} style={{ width: 350 }} /> */}
         {/* <Input size="large" value={lastName} placeholder="Фамилия" onChange={(e) => setLastName(e.target.value)} style={{ width: 350 }} /> */}
 
-        <Select placeholder="Выберите Человека" size="large" style={{ width: 350 }} allowClear onChange={(e) => setCurrentUser(e)} value={currentUser}>
+        <Select
+          placeholder="Выберите Человека"
+          size="large"
+          style={{ width: 350 }}
+          allowClear
+          onChange={(e) => setCurrentUser(e)}
+          value={currentUser}
+        >
           {users && (
             <>
               {users?.map((user) => {
@@ -153,139 +169,39 @@ const InviteUsers = () => {
             </>
           )}
         </Select>
-        <Select
-          placeholder="Выберите Стол"
-          size="large"
-          style={{ width: 350 }}
-          allowClear
-          options={TABLE_MOCK}
-          value={table}
-          onChange={(e) => {
-            setTable(e);
-          }}
-        />
 
-        <Select
-          placeholder="Выберите Стул"
-          size="large"
-          style={{ width: 350 }}
-          allowClear
-          value={chair}
-          options={CHAIR_MOCK}
-          onChange={(e) => {
-            setChair(e);
-          }}
-        />
+        {inputs.map((input, index) => {
+          return (
+            <>
+              <Select
+                placeholder="Выберите Стол"
+                size="large"
+                style={{ width: 350 }}
+                allowClear
+                options={TABLE_MOCK}
+                value={input.table}
+                onChange={(e) => handleInputChange(index, 'table', e)}
+              />
+
+              <Select
+                placeholder="Выберите Стул"
+                size="large"
+                style={{ width: 350 }}
+                allowClear
+                value={input.chair}
+                options={CHAIR_MOCK}
+                onChange={(e) => handleInputChange(index, 'chair', e)}
+              />
+            </>
+          );
+        })}
+        <Button size="large" color="primary" style={{ width: 350 }} onClick={addInput}>
+          Добавить персону
+        </Button>
         <Button size="large" color="primary" style={{ width: 350 }} onClick={handleInviteUser}>
           Пригласить
         </Button>
-
-        {/* {url && (
-          <Button onClick={copyToClipBoard} style={{ width: 350 }}>
-            Копировать ссылку
-          </Button>
-        )} */}
       </div>
-      {/* <div className="display-place__wrapper">
-        <div className="main-table__wrapper">
-          <div className="main-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-          </div>
-        </div>
-        <div className="secondary-tables__wrapper">
-          <div className="secondary-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-            <div className="char">5</div>
-            <div className="char">6</div>
-            <div className="char">7</div>
-            <div className="char">8</div>
-            <div className="char">9</div>
-            <div className="char">10</div>
-            <div className="char">11</div>
-            <div className="char">12</div>
-          </div>
-          <div className="secondary-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-            <div className="char">5</div>
-            <div className="char">6</div>
-            <div className="char">7</div>
-            <div className="char">8</div>
-            <div className="char">9</div>
-            <div className="char">10</div>
-            <div className="char">11</div>
-            <div className="char">12</div>
-          </div>
-        </div>
-        <div className="secondary-tables__wrapper">
-          <div className="secondary-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-            <div className="char">5</div>
-            <div className="char">6</div>
-            <div className="char">7</div>
-            <div className="char">8</div>
-            <div className="char">9</div>
-            <div className="char">10</div>
-            <div className="char">11</div>
-            <div className="char">12</div>
-          </div>
-          <div className="secondary-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-            <div className="char">5</div>
-            <div className="char">6</div>
-            <div className="char">7</div>
-            <div className="char">8</div>
-            <div className="char">9</div>
-            <div className="char">10</div>
-            <div className="char">11</div>
-            <div className="char">12</div>
-          </div>
-        </div>
-        <div className="secondary-tables__wrapper">
-          <div className="secondary-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-            <div className="char">5</div>
-            <div className="char">6</div>
-            <div className="char">7</div>
-            <div className="char">8</div>
-            <div className="char">9</div>
-            <div className="char">10</div>
-            <div className="char">11</div>
-            <div className="char">12</div>
-          </div>
-          <div className="secondary-table">
-            <div className="char">1</div>
-            <div className="char">2</div>
-            <div className="char">3</div>
-            <div className="char">4</div>
-            <div className="char">5</div>
-            <div className="char">6</div>
-            <div className="char">7</div>
-            <div className="char">8</div>
-            <div className="char">9</div>
-            <div className="char">10</div>
-            <div className="char">11</div>
-            <div className="char">12</div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };
