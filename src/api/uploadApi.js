@@ -53,4 +53,18 @@ export const downloadImages = createAsyncThunk('post/uploadImages', async (data)
   }
 });
 
+export const downloadImage = createAsyncThunk('get/downloadImage', async (setLoading) => {
+  setLoading(true)
+  try {
+    const response = await axiosApi.get(`/download/files/all`, {
+      responseType: 'blob',
+    });
+    fileDownload(response.data, 'results.zip');
 
+    setLoading(false)
+
+  } catch (error) {
+    console.log(error);
+    setLoading(false)
+  }
+});

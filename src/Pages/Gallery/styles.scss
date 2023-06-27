@@ -9,10 +9,22 @@
   position: relative;
   padding: 40px 20px 20px;
 
+  @media screen and (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__link {
     position: absolute;
     top: 20px;
     left: 120px;
+    @media screen and (max-width: 800px) {
+      position: relative;
+      top: initial;
+      left: initial;
+    }
   }
 }
 
@@ -28,6 +40,17 @@
   &:hover {
     border: 1px solid #f6fff6;
     background: #96f696;
+  }
+
+  &-download {
+    position: absolute;
+    top: 20px;
+    right: 120px;
+    @media screen and (max-width: 800px) {
+      position: relative;
+      top: initial;
+      right: initial;
+    }
   }
 }
 

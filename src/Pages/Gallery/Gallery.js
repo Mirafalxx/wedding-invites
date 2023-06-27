@@ -2,10 +2,11 @@ import React, { useEffect, memo, useContext } from 'react';
 import PhotoCard from '../../components/PhotoCard/PhotoCard';
 import './styles.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getImages } from '../../api/uploadApi';
+import { downloadImage, getImages } from '../../api/uploadApi';
 import { Link, useParams } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
 import { PopupContext } from '../../utils/ModalContenxt';
+import axios from 'axios';
 
 const Gallery = () => {
   const params = useParams();
@@ -24,12 +25,21 @@ const Gallery = () => {
     if (!loading) setLoading(false);
   }, [loading, setLoading]);
 
+  const handler = async () => {
+    await dispatch(downloadImage(setLoading));
+  };
+
   return (
     <div className="gallery">
       <Link className={'gallery__link'} to={'/'}>
         Вернуться назад
       </Link>
-      {images.length ? images.map((item, index) => <PhotoCard id={item.id} isAdmin={isAdmin} key={index} src={item.url} images={images} />) : null}
+      <button className={'admin__btn admin__btn-download'} onClick={handler}>
+        Скачать все картинки
+      </button>
+      {images.length
+        ? images.map((item, index) => <PhotoCard id={item.id} isAdmin={isAdmin} key={index} src={item.url} images={images} />)
+        : null}
       {loading && <Spinner />}
     </div>
   );
