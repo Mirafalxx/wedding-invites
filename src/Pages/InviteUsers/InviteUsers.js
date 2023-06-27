@@ -164,6 +164,7 @@ const InviteUsers = () => {
         {inputs.map((input, index) => {
           return (
             <>
+              <p>Место для человека</p>
               <Select
                 placeholder="Выберите Стол"
                 size="large"
@@ -187,7 +188,7 @@ const InviteUsers = () => {
           );
         })}
         <Button size="large" color="primary" style={{ width: 350 }} onClick={addInput}>
-          Добавить персону
+          Добавить еще место для семьи
         </Button>
         <Button size="large" color="primary" style={{ width: 350 }} onClick={handleInviteUser}>
           Пригласить
