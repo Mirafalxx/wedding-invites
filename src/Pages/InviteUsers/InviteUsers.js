@@ -1,10 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Button, Input, Select } from 'antd';
-import { showNotification } from '../../components/notification/showNotification';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Select } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser, fetchUsers, updateUser } from '../../api/usersApi';
+import { fetchUsers, updateUser } from '../../api/usersApi';
 import { PopupContext } from '../../utils/ModalContenxt';
 import './style.scss';
+
 const { Option } = Select;
 
 const TABLE_MOCK = [
@@ -90,8 +90,7 @@ const InviteUsers = () => {
   const users = useSelector((state) => state.users.users);
   const loading = useSelector((state) => state.users.loading);
   const [inputs, setInputs] = useState([{ table: null, chair: null }]);
-  const [chair, setChair] = useState(null);
-  const [table, setTable] = useState(null);
+
   const [currentUser, setCurrentUser] = useState(null);
   const { setLoading } = useContext(PopupContext);
 
@@ -103,12 +102,6 @@ const InviteUsers = () => {
     setCurrentUser(null);
     setInputs([{ table: null, chair: null }]);
   };
-
-  // const copyToClipBoard = async () => {
-  //   await navigator.clipboard.writeText(url).then(() => {
-  //     showNotification('success', 'Ссылка скопирована !');
-  //   });
-  // };
 
   const addInput = () => {
     setInputs([...inputs, { table: null, chair: null }]);
@@ -125,8 +118,7 @@ const InviteUsers = () => {
       return 'Недопустимые значения для стола или стула.';
     }
     const totalChairsPerTable = 12;
-    const chairNumber = (table - 1) * totalChairsPerTable + chair;
-    return chairNumber;
+    return (table - 1) * totalChairsPerTable + chair;
   }
   const handleInviteUser = () => {
     const user = {
@@ -150,9 +142,6 @@ const InviteUsers = () => {
   return (
     <div className="invite-user__container">
       <div className="add-user__wrapper">
-        {/* <Input size="large" value={firstName} placeholder="Имя" onChange={(e) => setFirstName(e.target.value)} style={{ width: 350 }} /> */}
-        {/* <Input size="large" value={lastName} placeholder="Фамилия" onChange={(e) => setLastName(e.target.value)} style={{ width: 350 }} /> */}
-
         <Select
           placeholder="Выберите Человека"
           size="large"
