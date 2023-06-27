@@ -5,8 +5,8 @@ import { createUser, deleteUser, fetchUsers } from '../../api/usersApi';
 import { UserOutlined } from '@ant-design/icons';
 import Qrcode from '../../components/QRCODE';
 import { PopupContext } from '../../utils/ModalContenxt';
-import './styles.scss';
 import InviteUsers from '../InviteUsers/InviteUsers';
+import './styles.scss';
 
 const UserList = () => {
   const dispatch = useDispatch();
