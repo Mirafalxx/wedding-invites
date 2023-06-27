@@ -10,12 +10,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, getUser } from '../../api/usersApi';
 import { PopupContext } from '../../utils/ModalContenxt';
 
-import Wine from '../../assets/icons/wine.png';
-import Mans from '../../assets/icons/dresses.png';
-import Camera from '../../assets/icons/gallery.png';
-import Alien from '../../assets/icons/chair.png';
-import Cloud from '../../assets/icons/camera.png';
-import Love from '../../assets/icons/igo.png';
+import Wine from '../../images/icons/wine.png';
+import Mans from '../../images/icons/dresses.png';
+import Camera from '../../images/icons/gallery.png';
+import Alien from '../../images/icons/chair.png';
+import Cloud from '../../images/icons/camera.png';
+import Love from '../../images/icons/igo.png';
 
 import './acceptInvite.scss';
 

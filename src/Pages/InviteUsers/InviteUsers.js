@@ -132,6 +132,8 @@ const InviteUsers = () => {
     response.then((res) => {
       if (res.payload) {
         resetStates();
+
+        dispatch(fetchUsers());
       }
     });
   };
