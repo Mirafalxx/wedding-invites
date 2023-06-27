@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Button, Modal, Table, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser, deleteUser, fetchUsers } from '../../api/usersApi';
-import './styles.scss';
 import { UserOutlined } from '@ant-design/icons';
 import Qrcode from '../../components/QRCODE';
 import { PopupContext } from '../../utils/ModalContenxt';
+import './styles.scss';
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const UserList = () => {
       render: (_, record) => (
         <div>
           {record.seats.map((item) => (
-            <div>Номер стула: {item}</div>
+            <div>Номер стола: {Math.ceil(item / 12)}</div>
           ))}
         </div>
       ),
