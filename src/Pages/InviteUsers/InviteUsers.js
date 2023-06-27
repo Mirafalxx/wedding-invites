@@ -130,7 +130,6 @@ const InviteUsers = () => {
 
     let response = dispatch(updateUser({ ...user }));
     response.then((res) => {
-      console.log(res);
       if (res.payload) {
         resetStates();
       }
@@ -144,14 +143,7 @@ const InviteUsers = () => {
   return (
     <div className="invite-user__container">
       <div className="add-user__wrapper">
-        <Select
-          placeholder="Выберите Человека"
-          size="large"
-          style={{ width: 350 }}
-          allowClear
-          onChange={(e) => setCurrentUser(e)}
-          value={currentUser}
-        >
+        <Select placeholder="Выберите Человека" size="large" allowClear onChange={(e) => setCurrentUser(e)} value={currentUser}>
           {users && (
             <>
               {users?.map((user) => {
@@ -168,7 +160,6 @@ const InviteUsers = () => {
               <Select
                 placeholder="Выберите Стол"
                 size="large"
-                style={{ width: 350 }}
                 allowClear
                 options={TABLE_MOCK}
                 value={input.table}
@@ -178,7 +169,6 @@ const InviteUsers = () => {
               <Select
                 placeholder="Выберите Стул"
                 size="large"
-                style={{ width: 350 }}
                 allowClear
                 value={input.chair}
                 options={CHAIR_MOCK}
@@ -187,10 +177,10 @@ const InviteUsers = () => {
             </>
           );
         })}
-        <Button size="large" color="primary" style={{ width: 350 }} onClick={addInput}>
+        <Button size="large" color="primary" style={{ maxWidth: 350 }} onClick={addInput}>
           Добавить еще место для семьи
         </Button>
-        <Button size="large" color="primary" style={{ width: 350 }} onClick={handleInviteUser}>
+        <Button size="large" color="primary" style={{ maxWidth: 350 }} onClick={handleInviteUser}>
           Пригласить
         </Button>
       </div>

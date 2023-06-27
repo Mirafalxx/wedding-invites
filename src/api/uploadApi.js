@@ -1,9 +1,8 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axiosApi from '../utils/axiosApi';
-import { showNotification } from '../components/notification/showNotification';
-import { store } from '../index';
-import fileDownload from 'js-file-download';
-import axios from 'axios';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axiosApi from "../utils/axiosApi";
+import { showNotification } from "../components/notification/showNotification";
+import { store } from "../index";
+import fileDownload from "js-file-download";
 
 export const uploadImages = createAsyncThunk('post/uploadImages', async (data) => {
   try {
