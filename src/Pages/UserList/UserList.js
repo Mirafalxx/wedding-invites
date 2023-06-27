@@ -15,8 +15,6 @@ const UserList = () => {
   const [showQ, setShowQ] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { setLoading } = useContext(PopupContext);
 
   useEffect(() => {
@@ -36,8 +34,8 @@ const UserList = () => {
       createUser({
         firstName,
         lastName,
-        email,
-        password,
+        email: '',
+        password: '1234',
         drinks: '',
         isAdmin: null,
         seats: [],
@@ -65,14 +63,6 @@ const UserList = () => {
 
   const handleLastNameChange = (e) => {
     setLastName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
   };
 
   const columns = [
@@ -109,12 +99,6 @@ const UserList = () => {
       ),
     },
     {
-      title: 'Придет',
-      dataIndex: 'age',
-      render: (_, record) => <div>{record.age === 0 ? 'Нет' : 'Да'}</div>,
-      sorter: (a, b) => a.age - b.age,
-    },
-    {
       title: 'Активность',
       dataIndex: 'table_number',
       render: (_, record) => (
@@ -142,15 +126,20 @@ const UserList = () => {
         <div className="modal__body">
           <Input size="large" placeholder="Имя" prefix={<UserOutlined />} value={firstName} onChange={handleFirstNameChange} />
           <Input size="large" placeholder="Фамилия" prefix={<UserOutlined />} value={lastName} onChange={handleLastNameChange} />
-          <Input size="large" placeholder="Email" prefix={<UserOutlined />} value={email} onChange={handleEmailChange} />
-          <Input size="large" placeholder="Пароль" prefix={<UserOutlined />} type="password" value={password} onChange={handlePasswordChange} />
         </div>
         <div className="modal__footer">
           <Button onClick={handleCancel}>Назад</Button>
           <Button onClick={handleOk}>ОК</Button>
         </div>
       </Modal>
-      <Modal title="QR CODE" footer={null} visible={showQ} onOk={() => setShowQ(false)} onCancel={() => setShowQ(false)} className="modal">
+      <Modal
+        title="QR CODE"
+        footer={null}
+        visible={showQ}
+        onOk={() => setShowQ(false)}
+        onCancel={() => setShowQ(false)}
+        className="modal"
+      >
         <Qrcode />
       </Modal>
     </div>
