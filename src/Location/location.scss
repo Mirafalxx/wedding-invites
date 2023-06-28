@@ -11,12 +11,16 @@
     width: 300px;
     height: 60px;
     display: flex;
-    align-items: flex-start;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
     border-radius: 7px;
+
+    @media screen and (max-width: 700px) {
+      width: 200px;
+    }
   }
 
   &__exit {
@@ -31,6 +35,10 @@
     bottom: 0;
     transform: translate(-50%, 0);
     border-radius: 7px;
+
+    @media screen and (max-width: 1200px) {
+      height: 30px;
+    }
   }
 }
 
@@ -51,31 +59,69 @@
   position: absolute;
   border-radius: 7px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  p,
+  span {
+    font-size: 13px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 200px;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 120px;
+  }
+}
+
+.table__active {
+  background: #96f696;
 }
 
 .table-1 {
   top: 110px;
   left: 80px;
+  @media screen and (max-width: 1200px) {
+    left: 10px;
+  }
 }
 .table-2 {
   top: 250px;
   left: 80px;
+  @media screen and (max-width: 1200px) {
+    left: 10px;
+  }
 }
 .table-3 {
   top: 400px;
   left: 80px;
+  @media screen and (max-width: 1200px) {
+    left: 10px;
+  }
 }
 .table-4 {
   top: 110px;
   right: 80px;
+  @media screen and (max-width: 1200px) {
+    right: 10px;
+  }
 }
 .table-5 {
   top: 250px;
   right: 80px;
+  @media screen and (max-width: 1200px) {
+    right: 10px;
+  }
 }
 .table-6 {
   top: 400px;
   right: 80px;
+  @media screen and (max-width: 1200px) {
+    right: 10px;
+  }
 }
 
 .active-table {

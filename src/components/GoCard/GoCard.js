@@ -8,6 +8,12 @@ const GoCard = ({ src, title, isModalOpen, setIsModalOpen }) => {
   const [value, setValue] = useState(false);
   const user = useSelector((state) => state.users.user);
 
+  useEffect(() => {
+    if (user) {
+      setValue(!!user.isVisit);
+    }
+  }, [user]);
+
   const onChange = (e) => {
     setValue(e.target.value);
   };
@@ -25,13 +31,13 @@ const GoCard = ({ src, title, isModalOpen, setIsModalOpen }) => {
   const handleOk = () => {
     setIsModalOpen(false);
 
-    dispatch(updateUser({ ...user, isVisit: value }));
+    dispatch(updateUser({ id: user.id, isVisit: value }));
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
 
-    dispatch(updateUser({ ...user, isVisit: value }));
+    dispatch(updateUser({ id: user.id, isVisit: value }));
   };
 
   return (
@@ -41,7 +47,14 @@ const GoCard = ({ src, title, isModalOpen, setIsModalOpen }) => {
         <h3>{title}</h3>
       </div>
 
-      <Modal title="Придете ли Вы на свадьбу ?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal modal__little'}>
+      <Modal
+        title="Придете ли Вы на свадьбу ?"
+        footer={null}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className={'modal modal__little'}
+      >
         <div className={'modal__body'}>
           <Radio.Group onChange={onChange} value={value}>
             <Radio value={true}>Я Обязательно приду!!!</Radio>

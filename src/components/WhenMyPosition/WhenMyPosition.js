@@ -1,9 +1,12 @@
 import React, { memo, useState } from 'react';
 import { Button, Modal } from 'antd';
 import Location from '../../Location/Location';
+import { useSelector } from "react-redux";
 
 const WhenMyPosition = ({ src, title }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const user = useSelector(state=>state.users.user)
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -23,7 +26,7 @@ const WhenMyPosition = ({ src, title }) => {
 
       <Modal title="Где Я сижу?" footer={null} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} className={'modal modal__location'}>
         <div className={'modal__body'}>
-          <Location />
+          {isModalOpen && <Location seats={user.seats} />}
         </div>
         <div className={'modal__footer'}>
           <Button onClick={handleCancel}>Назад</Button>

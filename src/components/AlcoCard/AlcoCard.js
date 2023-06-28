@@ -3,7 +3,7 @@ import { Button, Checkbox, Modal } from 'antd';
 import { updateUser } from '../../api/usersApi';
 import { useDispatch, useSelector } from 'react-redux';
 
-const DRINKS = ['Водка', 'Пиво', 'Вино', 'Шампанское', 'Виски', 'Текилла', 'Самбука'];
+const DRINKS = ['Водка', 'Красное Вино', 'Шампанское', 'Белое Вино', 'Коньяк', 'Кола/Фанта/Спрайт', 'Натуральные Соки'];
 
 const AlcoCard = ({ src, title }) => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const AlcoCard = ({ src, title }) => {
   const handleOk = () => {
     setIsModalOpen(false);
 
-    dispatch(updateUser({ ...user, drinks }));
+    dispatch(updateUser({ id: user.id, drinks }));
   };
 
   const handleCancel = () => {
@@ -56,7 +56,11 @@ const AlcoCard = ({ src, title }) => {
       >
         <div className={'modal__body'}>
           {DRINKS.map((item) => (
-            <Checkbox checked={drinks?.includes(item)} onClick={(event) => checkBoxHandler(event.target.checked, item)}>
+            <Checkbox
+              key={item}
+              checked={drinks?.includes(item)}
+              onClick={(event) => checkBoxHandler(event.target.checked, item)}
+            >
               {item}
             </Checkbox>
           ))}

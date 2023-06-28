@@ -8,6 +8,7 @@ import Gallery from './Pages/Gallery/Gallery';
 import './App.scss';
 import { PopupContextProvider } from './utils/ModalContenxt';
 import Spinner from './components/Spinner/Spinner';
+import LocalStorage from './Pages/LocalStorage/LocalStorage';
 
 const App = () => {
   const [modal, setModal] = useState(false);
@@ -22,9 +23,10 @@ const App = () => {
           <Route path="/user-list" element={<UserList />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/gallery/:id" element={<Gallery />} />
+          <Route path="/store" element={<LocalStorage />} />
         </Routes>
       </Layout>
-<></>
+      <></>
       {loading && <Spinner />}
     </PopupContextProvider>
   );
