@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo, useCallback } from 'react';
 import { Button, Modal, Table, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { createUser, deleteUser, fetchUsers } from '../../api/usersApi';
+import { createUser, deleteUser, fetchUsers, updateUser } from '../../api/usersApi';
 import { UserOutlined } from '@ant-design/icons';
 import Qrcode from '../../components/QRCODE';
 import { PopupContext } from '../../utils/ModalContenxt';
@@ -10,15 +10,25 @@ import './styles.scss';
 
 const UserList = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.users);
+  const usersStore = useSelector((state) => state.users.users);
   const loading = useSelector((state) => state.users.loading);
   const [show, setShow] = useState(false);
   const [showQ, setShowQ] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
+  const [firstNameEdit, setFirstNameEdit] = useState('');
+  const [lastNameEdit, setLastNameEdit] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+
   const { setLoading } = useContext(PopupContext);
+
+  const users = useMemo(() => {
+    return [...usersStore].sort((a, b) => a.firstName.localeCompare(b.firstName));
+  }, [usersStore]);
 
   useEffect(() => {
     if (!loading) setLoading(false);
@@ -30,6 +40,13 @@ const UserList = () => {
 
   const handleCancel = () => {
     setShow(false);
+  };
+
+  const handleCancelEdit = () => {
+    setShowEdit(false);
+    setCurrentUser('');
+    setFirstNameEdit('');
+    setLastNameEdit('');
   };
 
   const handleOk = async () => {
@@ -52,6 +69,15 @@ const UserList = () => {
     }
   };
 
+  const handleOkEdit = useCallback(async () => {
+    const response = await dispatch(updateUser({ id: currentUser, firstName: firstNameEdit, lastName: lastNameEdit }));
+
+    if (response?.payload) {
+      handleCancelEdit();
+      dispatch(fetchUsers());
+    }
+  }, [currentUser, firstNameEdit, lastNameEdit, dispatch]);
+
   const removeHandler = async (id) => {
     const response = await dispatch(deleteUser(id));
 
@@ -68,6 +94,21 @@ const UserList = () => {
     setLastName(e.target.value);
   };
 
+  const handleFirstNameChangeEdit = (e) => {
+    setFirstNameEdit(e.target.value);
+  };
+
+  const handleLastNameChangeEdit = (e) => {
+    setLastNameEdit(e.target.value);
+  };
+
+  const editHandler = (record) => {
+    setFirstNameEdit(record.firstName);
+    setLastNameEdit(record.lastName);
+    setCurrentUser(record.id);
+    setShowEdit(true);
+  };
+
   const columns = [
     {
       title: 'Фамилия Имя',
@@ -82,7 +123,6 @@ const UserList = () => {
       title: 'Придет не придет',
       dataIndex: 'name',
       render: (_, record) => <div>{record.isVisit ? 'Придет' : 'Не придет'}</div>,
-      sorter: (a, b) => a.isVisit.length - b.isVisit.length,
     },
 
     {
@@ -105,9 +145,15 @@ const UserList = () => {
       title: 'Активность',
       dataIndex: 'table_number',
       render: (_, record) => (
-        <button onClick={() => removeHandler(record.id)} className="admin__btn-table">
-          Удалить
-        </button>
+        <div className="table__action">
+          <button onClick={() => removeHandler(record.id)} className="admin__btn-table">
+            Удалить
+          </button>
+
+          <button onClick={() => editHandler(record)} className="admin__btn-table-edit">
+            Редактировать
+          </button>
+        </div>
       ),
     },
   ];
@@ -139,6 +185,30 @@ const UserList = () => {
           <Button onClick={handleOk}>ОК</Button>
         </div>
       </Modal>
+
+      <Modal title="Редактирования гостя" footer={null} visible={showEdit} onCancel={handleCancelEdit} className="modal">
+        <div className="modal__body">
+          <Input
+            size="large"
+            placeholder="Имя"
+            prefix={<UserOutlined />}
+            value={firstNameEdit}
+            onChange={handleFirstNameChangeEdit}
+          />
+          <Input
+            size="large"
+            placeholder="Фамилия"
+            prefix={<UserOutlined />}
+            value={lastNameEdit}
+            onChange={handleLastNameChangeEdit}
+          />
+        </div>
+        <div className="modal__footer">
+          <Button onClick={handleCancelEdit}>Назад</Button>
+          <Button onClick={handleOkEdit}>ОК</Button>
+        </div>
+      </Modal>
+
       <Modal
         title="QR CODE"
         footer={null}

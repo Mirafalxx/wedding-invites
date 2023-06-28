@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import UploadCard from '../../components/UploadCard/UploadCard';
 import DressCodeCard from '../../components/DressCodeCard/DressCodeCard';
 import GoCard from '../../components/GoCard/GoCard';
@@ -21,11 +21,15 @@ import './acceptInvite.scss';
 
 const AcceptInvite = () => {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.users.users);
+  const usersStore = useSelector((state) => state.users.users);
   const loading = useSelector((state) => state.users.loading);
   const { modal, setModal, setLoading } = useContext(PopupContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState('');
+
+  const users = useMemo(() => {
+    return [...usersStore].sort((a, b) => a.firstName.localeCompare(b.firstName));
+  }, [usersStore]);
 
   useEffect(() => {
     dispatch(fetchUsers());
