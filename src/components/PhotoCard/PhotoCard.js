@@ -1,13 +1,12 @@
-import React, { memo, useState } from 'react';
-import './style.scss';
+import React, { memo } from 'react';
 import { Image } from 'antd';
 import { useDispatch } from 'react-redux';
 import { deleteImages } from '../../api/uploadApi';
 import ImageDownloadButton from '../DownLoadButton/DownLoadButton';
+import './style.scss';
 
-const PhotoCard = ({ src, images, isAdmin, id }) => {
+const PhotoCard = ({ src, isAdmin, id }) => {
   const dispatch = useDispatch();
-  const [visible, setVisible] = useState(false);
 
   const deleteHandler = () => {
     dispatch(deleteImages(id));
@@ -23,21 +22,7 @@ const PhotoCard = ({ src, images, isAdmin, id }) => {
 
       <ImageDownloadButton imageUrl={src} />
 
-      <Image preview={{ visible: false }} width={200} src={src} onClick={() => setVisible(true)} />
-      <div className="photo-item__hidden">
-        <Image.PreviewGroup
-          preview={{
-            visible,
-            onVisibleChange: (vis) => setVisible(vis),
-          }}
-        >
-          {images.map((item, index) => (
-            <>
-              <Image src={item.url} key={index} />
-            </>
-          ))}
-        </Image.PreviewGroup>
-      </div>
+      <Image width={200} src={src} />
     </div>
   );
 };

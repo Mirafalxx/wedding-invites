@@ -7,6 +7,7 @@ const imagesSlice = createSlice({
   initialState: {
     images: [],
     loading: false,
+    disabled: false,
   },
   reducers: {},
   extraReducers: {
@@ -23,7 +24,23 @@ const imagesSlice = createSlice({
       state.loading = true;
     },
     [getImages.fulfilled]: (state, { payload }) => {
-      state.images = payload;
+      if (payload.length) {
+        const uniqueObjects = [];
+
+        const processedIds = [];
+
+        [...state.images, ...payload].forEach(function (obj) {
+          if (!processedIds.includes(obj.id)) {
+            processedIds.push(obj.id);
+            uniqueObjects.push(obj);
+          }
+        });
+        state.disabled = false;
+
+        state.images = uniqueObjects;
+      } else {
+        state.disabled = true;
+      }
       state.loading = false;
     },
     [getImages.pending]: (state) => {

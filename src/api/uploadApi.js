@@ -1,8 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosApi from "../utils/axiosApi";
-import { showNotification } from "../components/notification/showNotification";
-import { store } from "../index";
-import fileDownload from "js-file-download";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axiosApi from '../utils/axiosApi';
+import { showNotification } from '../components/notification/showNotification';
+import { store } from '../index';
+import fileDownload from 'js-file-download';
 
 export const uploadImages = createAsyncThunk('post/uploadImages', async (data) => {
   try {
@@ -19,9 +19,9 @@ export const uploadImages = createAsyncThunk('post/uploadImages', async (data) =
   }
 });
 
-export const getImages = createAsyncThunk('get/getImages', async () => {
+export const getImages = createAsyncThunk('get/getImages', async (page) => {
   try {
-    const response = await axiosApi.get('/files');
+    const response = await axiosApi.get(`/files?page=${page}&limit=12`);
     return response.data.data;
   } catch (error) {
     console.log(error);
@@ -53,17 +53,16 @@ export const downloadImages = createAsyncThunk('post/uploadImages', async (data)
 });
 
 export const downloadImage = createAsyncThunk('get/downloadImage', async (setLoading) => {
-  setLoading(true)
+  setLoading(true);
   try {
     const response = await axiosApi.get(`/download/files/all`, {
       responseType: 'blob',
     });
     fileDownload(response.data, 'results.zip');
 
-    setLoading(false)
-
+    setLoading(false);
   } catch (error) {
     console.log(error);
-    setLoading(false)
+    setLoading(false);
   }
 });
