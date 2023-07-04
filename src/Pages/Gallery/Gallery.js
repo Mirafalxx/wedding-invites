@@ -15,6 +15,7 @@ const Gallery = () => {
   const loading = useSelector((state) => state.images.loading);
   const isAdmin = params.id === 'alina';
   const [page, setPage] = useState(1);
+  // add commentary
 
   useEffect(() => {
     dispatch(getImages(page));
